@@ -13,7 +13,7 @@ const  Middleware  = require('./Middleware');
 require('dotenv').config()
 
 app.use(express.json());
-app.use(cors({credentials:true,origin:'http://localhost:5174'}));
+app.use(cors({credentials:true}));
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
