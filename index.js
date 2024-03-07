@@ -17,7 +17,7 @@ app.use(express.json());
 app.use((req, res, next) => {
    res.setHeader(
      "Access-Control-Allow-Origin",
-     "https://your-frontend.com"
+     " http://localhost:5174/"
    );
    res.setHeader(
      "Access-Control-Allow-Methods",
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
  
    next();
  });
- 
+
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
