@@ -10,11 +10,10 @@ const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const  Middleware  = require('./Middleware');
-const { error } = require('console');
 require('dotenv').config()
 
 app.use(express.json());
-app.use(cors({credentials:true,origin:'http://localhost:5173'}));
+app.use(cors({credentials:true,origin:'http://localhost:5174'}));
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
@@ -28,6 +27,7 @@ app.post('/register', async (req, res) => {
       res.json({message:"register Sucessfully"});
     }
     catch(error){
+      console.log(error);
        res.status(400).json({error});
     }
 })
@@ -52,7 +52,7 @@ app.post('/login',async(req,res)=>{
        }
    }
    catch(error){
-     // console.log(error);
+      console.log(error);
        res.status(400).json({error})
    }
 })
@@ -85,6 +85,7 @@ app.post('/create',upload.single('file'),Middleware,async(req,res)=>{
       res.json(postdoc);
    }
    catch(error){
+      console.log(error);
        res.status(400).json(error);
    }
 })
@@ -95,11 +96,11 @@ app.get('/posts',async(req,res)=>{
             .populate('author',['username'])
             .sort({createdAt:-1})
             .limit(20);
-           //console.log(post);
+           console.log(post);
            res.json({array:post});
       } 
       catch (error) {
-        // console.log(error);
+         console.log(error);
          res.status(400).json(error);
       }
 })
@@ -112,7 +113,7 @@ app.get('/posts/:id',async(req,res)=>{
        res.json({postdoc});
    }
    catch(error){
-     // console.log(error);
+      console.log(error);
       res.status(400).json({error});
    }
 })
@@ -148,7 +149,7 @@ app.put('/edit/:id',upload.single('file'),Middleware,async(req,res)=>{
       res.json({postres,a:1});
    }
    catch(error){
-      // console.log(error);
+       console.log(error);
        res.status(400).json({error});
    }
 })
@@ -168,7 +169,7 @@ app.delete('/delete/:id',Middleware,async(req,res)=>{
      res.json("delete Sucessfully")
    }
    catch(error){
-     // console.log(error);
+      console.log(error);
       res.status(400).json({error})
    }
      

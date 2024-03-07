@@ -1,7 +1,8 @@
+const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
-require('dotenv').config()
 const {Schema} = mongoose;
-mongoose.connect(process.env.MONGO_URL);
+
+mongoose.connect(`${process.env.MONGO_URL}`);
 
 const userschema = new Schema({
     username:{type:String ,required:true,min:4,unique:true},
