@@ -104,7 +104,7 @@ app.get('/posts',async(req,res)=>{
             .sort({createdAt:-1})
             .limit(20);
            console.log(post);
-           res.json({array:post});
+           res.json({array:post,a:1});
       } 
       catch (error) {
          console.log(error);
