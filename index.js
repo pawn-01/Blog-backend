@@ -15,7 +15,7 @@ require('dotenv').config()
 app.use(express.json());
 
 const corsOptions ={
-    origin:'https://blog-frontend-e70tw3j14-pawn-01.vercel.app', 
+    origin:'https://blog-frontend-red-zeta.vercel.app', 
     credentials:true,            //access-control-allow-credentials:true
     methods:['GET','POST','PUT','DELETE']
 }
