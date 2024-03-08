@@ -15,7 +15,7 @@ require('dotenv').config()
 app.use(express.json());
 
 const corsOptions ={
-    origin:'https://blog-frontend-1cg2ijgp9-pawn-01.vercel.app', 
+    origin:'https://blog-frontend-ivzh1pyke-pawn-01.vercel.app', 
     credentials:true,            //access-control-allow-credentials:true
     methods:['GET','POST','PUT','DELETE']
 }
@@ -31,7 +31,7 @@ app.post('/register', async (req, res) => {
          password:bcrypt.hashSync(req.body.password, salt)
       })
       console.log(a);
-      res.json({message:"register Sucessfully"});
+      res.json({message:"register Sucessfully",a:1});
     }
     catch(error){
       console.log(error);
@@ -48,7 +48,7 @@ app.post('/login',async(req,res)=>{
         if(passok){
         const token =  jwt.sign({username:userdoc.username,id:userdoc._id},process.env.Sercret_Key);
        // console.log(token);
-        return  res.cookie('token',token).json({id:userdoc._id,username:req.body.username});
+        return  res.cookie('token',token).json({id:userdoc._id,username:req.body.username,a:1});
          }
          else{
           res.status(400).json({message:"credentials not matched"});
@@ -70,7 +70,7 @@ app.post('/profile',Middleware,async(req,res)=>{
 })
 
 app.post('/logout',async(req,res)=>{
-  res.cookie('token',' ').json('ok');
+  res.cookie('token',' ').json({a:1});
 })
 
 app.post('/create',upload.single('file'),Middleware,async(req,res)=>{
@@ -89,7 +89,7 @@ app.post('/create',upload.single('file'),Middleware,async(req,res)=>{
            cover:newpath,
            author:userdecode.id
       })
-      res.json(postdoc);
+      res.json({postdoc,a:1});
    }
    catch(error){
       console.log(error);
@@ -117,7 +117,7 @@ app.get('/posts/:id',async(req,res)=>{
        const { id } = req.params;
      //  console.log(id);
        const postdoc = await Posts.findById(id).populate('author',['username']);
-       res.json({postdoc});
+       res.json({postdoc,a:1});
    }
    catch(error){
       console.log(error);
@@ -173,7 +173,7 @@ app.delete('/delete/:id',Middleware,async(req,res)=>{
      }
 
     const postdelete =  await Posts.deleteOne({_id:id});
-     res.json("delete Sucessfully")
+     res.json({message:"delete Sucessfully",a:1})
    }
    catch(error){
       console.log(error);
