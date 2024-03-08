@@ -13,9 +13,11 @@ const  Middleware  = require('./Middleware');
 require('dotenv').config()
 
 app.use(express.json());
+
 const corsOptions ={
-    origin:'https://blog-frontend-crbhsg6p1-pawn-01.vercel.app/', 
+    origin:'*', 
     credentials:true,            //access-control-allow-credentials:true
+    methods:['GET','POST','PUT','DELETE']
 }
 
 app.use(cors(corsOptions));
