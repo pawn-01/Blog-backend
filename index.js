@@ -70,7 +70,7 @@ app.post('/profile',Middleware,async(req,res)=>{
 })
 
 app.post('/logout',async(req,res)=>{
-  res.cookie('token',' ',{secure:true}).json({a:1});
+  res.cookie('token',' ',{secure:true,httpOnly:true}).json({a:1});
 })
 
 app.post('/create',upload.single('file'),Middleware,async(req,res)=>{
