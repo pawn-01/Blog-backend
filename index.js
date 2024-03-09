@@ -49,7 +49,7 @@ app.post('/login',async(req,res)=>{
         if(passok){
         const token =  jwt.sign({username:userdoc.username,id:userdoc._id},process.env.Sercret_Key);
        // console.log(token);
-        return  res.cookie('token',token,{secure:true}).json({id:userdoc._id,username:req.body.username,a:1});
+        return  res.cookie('token',token,{secure:true,httpOnly:true}).json({id:userdoc._id,username:req.body.username,a:1});
          }
          else{
           res.status(400).json({message:"credentials not matched"});
