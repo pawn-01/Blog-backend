@@ -17,7 +17,6 @@ app.use(express.json());
 const corsOptions ={
     origin:`${process.env.Frontend_URL}`, 
     credentials:true,            //access-control-allow-credentials:true
-    exposedHeaders: ["set-cookie"],
     methods:['GET','POST','PUT','DELETE']
 }
 
@@ -49,7 +48,7 @@ app.post('/login',async(req,res)=>{
         if(passok){
         const token =  jwt.sign({username:userdoc.username,id:userdoc._id},process.env.Sercret_Key);
        // console.log(token);
-        return  res.cookie('token',token).json({id:userdoc._id,username:req.body.username,a:1});
+        return  res.cookie('token',token,{secure:true}).json({id:userdoc._id,username:req.body.username,a:1});
          }
          else{
           res.status(400).json({message:"credentials not matched"});
@@ -71,7 +70,7 @@ app.post('/profile',Middleware,async(req,res)=>{
 })
 
 app.post('/logout',async(req,res)=>{
-  res.cookie('token',' ').json({a:1});
+  res.cookie('token',' ',{secure:true}).json({a:1});
 })
 
 app.post('/create',upload.single('file'),Middleware,async(req,res)=>{
