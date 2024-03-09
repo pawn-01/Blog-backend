@@ -17,6 +17,7 @@ app.use(express.json());
 const corsOptions ={
     origin:`${process.env.Frontend_URL}`, 
     credentials:true,            //access-control-allow-credentials:true
+    exposedHeaders: ["set-cookie"],
     methods:['GET','POST','PUT','DELETE']
 }
 
