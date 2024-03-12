@@ -186,6 +186,7 @@ app.delete('/delete/:id',Middleware,async(req,res)=>{
 })
 
 app.get("/userpost/:id",async(req,res)=>{
+    try{
      const {id} = req.params;
      const post = await Posts.find({author:id});
      if(post.length>0){
@@ -194,6 +195,10 @@ app.get("/userpost/:id",async(req,res)=>{
      else{
        return  res.json({a:0})
      }
+   }
+   catch(error){
+      res.json({error});
+   }
 })
 
 app.listen(process.env.PORT, () => {
