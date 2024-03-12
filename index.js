@@ -37,7 +37,7 @@ app.post('/register', async (req, res) => {
     }
     catch(error){
       console.log(error);
-       res.status(400).json({error});
+       res.json({error,a:0});
     }
 })
 
@@ -53,7 +53,7 @@ app.post('/login',async(req,res)=>{
         return  res.cookie('token',token,{secure:true,httpOnly:true}).json({id:userdoc._id,username:req.body.username,a:1});
          }
          else{
-          res.status(400).json({message:"credentials not matched"});
+          res.json({message:"credentials not matched",a:0});
          }
        }
        else{
@@ -119,6 +119,7 @@ app.get('/posts/:id',async(req,res)=>{
        const { id } = req.params;
      //  console.log(id);
        const postdoc = await Posts.findById(id).populate('author',['username']);
+       console.log("postdoc  "+postdoc);
        res.json({postdoc,a:1});
    }
    catch(error){
@@ -184,6 +185,16 @@ app.delete('/delete/:id',Middleware,async(req,res)=>{
      
 })
 
+app.get("/userpost/:id",async(req,res)=>{
+     const {id} = req.params;
+     const post = await Posts.find({author:id});
+     if(post.length>0){
+       return res.json({array:post,a:1});
+     }
+     else{
+       return  res.json({a:0})
+     }
+})
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}`)
