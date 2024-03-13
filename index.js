@@ -21,7 +21,7 @@ const corsOptions ={
     methods:['GET','POST','PUT','DELETE']
 }
 
-app.set("trust proxy", 1);
+
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -50,7 +50,8 @@ app.post('/login',async(req,res)=>{
         if(passok){
         const token =  jwt.sign({username:userdoc.username,id:userdoc._id},process.env.Sercret_Key);
        // console.log(token);
-        return  res.cookie('token',token,{secure:true,httpOnly:true}).json({id:userdoc._id,username:req.body.username,a:1});
+       // return  res.cookie('token',token,{secure:true,httpOnly:true}).json({id:userdoc._id,username:req.body.username,a:1});
+        return res.json({token,id:userdoc._id,username:req.body.username,a:1});
          }
          else{
           res.json({message:"credentials not matched",a:0});
